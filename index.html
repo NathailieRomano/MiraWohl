@@ -75,17 +75,38 @@
     <!-- Booking widget (MediCloud) at the bottom -->
     <section class="card widget">
       <h2 class="widget-title">Online-Terminvereinbarung</h2>
+
+      <!-- Mobile fallback: open booking in a new tab (avoids iframe popup clipping on small screens) -->
+      <p class="widget-mobile-cta">
+        <a id="widget-mobile-link" class="widget-mobile-link" href="#" target="_blank" rel="noopener">Termin online buchen</a>
+      </p>
+
       <div class="widget-host">
         <script type="text/javascript" src="https://medicloudmed.ch/PatientDent/DemoWidget/PatientDentWidget.js" id="booking-js"></script>
         <iframe id="practicemed_iframe" title="Terminvereinbarung" style="width:100%;border:0;border-radius:12px;"></iframe>
         <script>
 document.addEventListener('DOMContentLoaded', function() {
-patientDentWidget({
-iframeId: "practicemed_iframe",
-clinicId: "68b9338bc043d89a5053f912",
-mode: "responsive",
-locale: "de"
-});
+  patientDentWidget({
+    iframeId: "practicemed_iframe",
+    clinicId: "68b9338bc043d89a5053f912",
+    mode: "responsive",
+    locale: "de"
+  });
+
+  // Fill the mobile link with the iframe URL once the widget initializes.
+  // (The widget runs inside an iframe; opening it in a new tab is more usable on small screens.)
+  const link = document.getElementById('widget-mobile-link');
+  const frame = document.getElementById('practicemed_iframe');
+  let tries = 0;
+  const timer = setInterval(() => {
+    tries++;
+    const src = frame && frame.getAttribute('src');
+    if (src && src !== 'about:blank') {
+      link.href = src;
+      clearInterval(timer);
+    }
+    if (tries > 50) clearInterval(timer); // ~10s
+  }, 200);
 });
         </script>  
       </div>

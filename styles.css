@@ -103,12 +103,26 @@ body{
 .card.widget{ background: #ffffff; border-color: #e8ecf3 }
 .widget-title{ margin: 0 0 10px 0; font-size: 1.05rem; color: var(--muted); font-weight: 700; text-align:center }
 
+.widget-mobile-cta{ display:none; margin: 0 0 12px 0; text-align:center }
+.widget-mobile-link{
+  display:inline-block;
+  background: var(--banner);
+  color: #fff;
+  text-decoration:none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+.widget-mobile-link:focus,
+.widget-mobile-link:hover{ filter: brightness(1.05) }
+
 .widget-host{ width:100%; display:block; overflow: visible }
 #practicemed_iframe{ width:100% !important; max-width:100% !important; display:block }
 
-/* On small screens, give the widget more vertical room so internal UI has space */
+/* Mobile: open booking in a new tab (iframe popups can clip on small screens) */
 @media (max-width: 640px){
-  #practicemed_iframe{ min-height: 86vh }
+  .widget-mobile-cta{ display:block }
+  #practicemed_iframe{ display:none }
 }
 
 /* taller min-height for larger screens so internal UI has room */
