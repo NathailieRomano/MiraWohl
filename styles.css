@@ -113,6 +113,12 @@ body{
   border-radius: 12px;
   font-weight: 700;
 }
+.widget-mobile-hint{
+  display:block;
+  margin-top: 8px;
+  font-size: .92rem;
+  color: var(--muted);
+}
 .widget-mobile-link:focus,
 .widget-mobile-link:hover{ filter: brightness(1.05) }
 
